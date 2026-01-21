@@ -42,29 +42,28 @@ export default {
 };
 
 function formatMessage(n: Notification): string {
-  let msg = `*${escapeMarkdown(n.title)}*`;
+  let msg = `<b>${escapeHtml(n.title)}</b>`;
 
   if (n.from) {
-    msg += `\n_From: ${escapeMarkdown(n.from)}_`;
+    msg += `\n<i>From: ${escapeHtml(n.from)}</i>`;
   }
 
   if (n.description) {
-    msg += `\n\n${escapeMarkdown(n.description)}`;
+    msg += `\n\n${escapeHtml(n.description)}`;
   }
 
   if (n.url) {
-    msg += `\n\n[Open Link](${escapeUrl(n.url)})`;
+    msg += `\n\n<a href="${n.url}">Open Link</a>`;
   }
 
   return msg;
 }
 
-function escapeMarkdown(text: string): string {
-  return text.replace(/([_*\[\]()~`>#+\-=|{}.!\\])/g, "\\$1");
-}
-
-function escapeUrl(url: string): string {
-  return url.replace(/([)\\])/g, "\\$1");
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 async function sendTelegram(
@@ -79,7 +78,7 @@ async function sendTelegram(
     body: JSON.stringify({
       chat_id: env.TELEGRAM_CHAT_ID,
       text: text,
-      parse_mode: "MarkdownV2",
+      parse_mode: "HTML",
     }),
   });
 
