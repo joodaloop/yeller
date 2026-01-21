@@ -53,7 +53,7 @@ function formatMessage(n: Notification): string {
   }
 
   if (n.url) {
-    msg += `\n\n[Open Link](${n.url})`;
+    msg += `\n\n[Open Link](${escapeUrl(n.url)})`;
   }
 
   return msg;
@@ -61,6 +61,10 @@ function formatMessage(n: Notification): string {
 
 function escapeMarkdown(text: string): string {
   return text.replace(/([_*\[\]()~`>#+\-=|{}.!\\])/g, "\\$1");
+}
+
+function escapeUrl(url: string): string {
+  return url.replace(/([)\\])/g, "\\$1");
 }
 
 async function sendTelegram(
