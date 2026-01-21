@@ -82,5 +82,10 @@ async function sendTelegram(
     }),
   });
 
-  return response.json();
+  const body = await response.text();
+  try {
+    return JSON.parse(body);
+  } catch {
+    return { ok: false, description: body };
+  }
 }
