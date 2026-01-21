@@ -1,11 +1,7 @@
 {
   "name": "yeller",
   "main": "src/index.ts",
-  "compatibility_date": "2024-01-01",
-  "vars": {
-    // Replace with your Telegram bot token from @BotFather
-    "TELEGRAM_BOT_TOKEN": "YOUR_BOT_TOKEN_HERE",
-    // Replace with your chat ID (message @userinfobot to get it)
-    "TELEGRAM_CHAT_ID": "YOUR_CHAT_ID_HERE"
-  }
+  "compatibility_date": "2024-01-01"
+  // Secrets are set via: wrangler secret put TELEGRAM_BOT_TOKEN
+  //                      wrangler secret put TELEGRAM_CHAT_ID
 }
